@@ -269,7 +269,7 @@ def action(data):
     raise Exception("This is an uncorrect command! Please restart programm and enter one of the commands(hello, add, change, phone, show all, good bye, close or exit.)")
 
 
-def main():
+if __name__ == '__main__':
 	address_book = AddressBook()
 
 	if os.path.isfile(file_name):
@@ -291,7 +291,3 @@ def main():
             print(result)
         if result == 'Good bye!':
             break
-
-
-if __name__ == '__main__':
-    main()
