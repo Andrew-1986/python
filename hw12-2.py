@@ -6,7 +6,7 @@ import os.path
 
 '''Classess'''
 class Field:
-	def __init__(self):
+    def __init__(self):
         self.__value = None
 
     @property
@@ -19,24 +19,24 @@ class Field:
 
 
 class Name(Field):
-	filed_name = "name"
+    filed_name = "name"
 
-	def __init__(self, name):
-		self.name = name
+    def __init__(self, name):
+        self.name = name
 
 
 class Phone(Field):
-	def __init__(self, phone):
-		self.phone = phone
+    def __init__(self, phone):
+	self.phone = phone
 
-	@property
+    @property
     def value(self):
         return self.__value
 
     @value.setter
     def value(self, new_value):
         if self.new_value.isdigit():
-        	self.__value = new_value
+            self.__value = new_value
         else:
             raise Exception("Please, enter a valid phone number")
 
@@ -52,18 +52,18 @@ class Birthday(Field):
     @value.setter
     def value(self, new_value):
         if self.new_value.isdigit():
-        	self.__value = new_value
+            self.__value = new_value
         else:
             raise Exception("Please, enter a valid birthday date")
 
 
 class Record:
-	def __init__(self, name, birthday=None):
-		self.name = name
-		self.phones = []
-		self.birthday = birthday
+    def __init__(self, name, birthday=None):
+	self.name = name
+	self.phones = []
+	self.birthday = birthday
 
-	def __str__(self):
+    def __str__(self):
         result = ""
         result += f"name: {self.name.value}"
 
@@ -73,33 +73,27 @@ class Record:
 
         return result
 
-	def add_phone(self, phone):
-		self.phones.append(phone)
+    def add_phone(self, phone):
+	self.phones.append(phone)
 
-	def remove_phone(self, phone):
-		self.phones.remove(phone)
+    def remove_phone(self, phone):
+	self.phones.remove(phone)
 
-	def edit_phone(self, current_phone, new_phone):
-		current_idx = self.phones.index(current_phone)
+    def edit_phone(self, current_phone, new_phone):
+	current_idx = self.phones.index(current_phone)
         self.phones[current_idx] = new_phone
 
     def days_to_birthday(self):
     	if self.birthday: 
-        	current_day = datetime.now()
-        	current_year = current_day.year
+            current_day = datetime.now()
+            current_year = current_day.year
             b_day = self.birthday.replace(current_year)
             delta = abs(b_day - current_day)
 
             return delta
         else:
             raise Exception("Please, add a birthday date")
-
-    def change_birthday(self,  new_birthday):
-        if new_birthday.value != None:
-            self.birthday = new_birthday
-        else:
-            raise Exception("New birthday is not correct")
-
+	
 
 class AdressBook(UserDict):
 	def add_record(self, record):
@@ -192,24 +186,6 @@ def change_phone(data):
 
 
 @input_error
-def add_birthday(data):
-    data = data.replace('Add birthday ', '')
-
-    if len(data.split()) == 2:
-        name, birthday = data.split()
-        birthday = Birthday(birthday)
-
-        if name not in address_book:
-            address_book.add_record(Record(name=Name(name), birthday=birthday))
-        elif address_book[name].birthday.value == None:
-            address_book[name].change_birthday(birthday)
-        else:
-            raise Exception("Birthday date is find")
-    else:
-        raise Exception("Enter a data(name, birthday) please")
-
-
-@input_error
 def find_data(data):
     data = data.replace('find ', '')
     if len(data.split()) == 1:
@@ -235,15 +211,14 @@ def show_all(data):
 
 @input_error
 def bye(data):
-	with open(file, 'wb') as fh:
+    with open(file, 'wb') as fh:
         pickle.dump(address_book, fh)
-
     return "Good bye!"
 
 
 @input_error
 def ext(data):
-    return 'break'
+    return 'break    
 
 
 '''handlers'''
@@ -253,7 +228,6 @@ HANDLERS = {
     "close": bye,
     "exit": bye,
     "add phone" : add_phone,
-    "add birthday": add_birthday,
     "change" : change_phone,
     "phone" : show_phone,
     "show all" : show_all,
@@ -272,9 +246,9 @@ def action(data):
 
 
 if __name__ == '__main__':
-	address_book = AddressBook()
+    address_book = AddressBook()
 
-	if os.path.isfile(file):
+    if os.path.isfile(file):
         with open(file, 'rb') as fh:
             address_book = pickle.load(fh)
 
