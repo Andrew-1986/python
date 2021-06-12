@@ -129,6 +129,8 @@ class AdressBook(UserDict):
 
 
 '''Bot part'''
+file = 'data.bin'
+
 '''error decorator'''
 def input_error(func):
     def inner(data):
@@ -233,7 +235,7 @@ def show_all(data):
 
 @input_error
 def bye(data):
-	with open(file_name, 'wb') as fh:
+	with open(file, 'wb') as fh:
         pickle.dump(address_book, fh)
 
     return "Good bye!"
@@ -272,7 +274,7 @@ def action(data):
 if __name__ == '__main__':
 	address_book = AddressBook()
 
-	if os.path.isfile(file_name):
+	if os.path.isfile(file):
         with open(file, 'rb') as fh:
             address_book = pickle.load(fh)
 
